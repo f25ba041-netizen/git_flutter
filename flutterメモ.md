@@ -250,3 +250,217 @@ Radio<String>(
     },
 )
 ```
+# DropdownButton
+```
+DropdownButton<型>(
+    onChanged: (型? value){}
+    value: 値,
+    style: <<TextStyle>>,
+    items: [<<DropdownMenuItem>>,...]
+)
+```
+## DropdownMenuItem
+```
+DropdownMenuItem<型>(value: 値,child: ウィジェット)
+```
+# Align
+位置揃え
+```
+Align(alignment:<<Alignment>>,child:...)
+```
+# PopupMenuButton
+```
+Align(
+    alignment: Alignment.centerRight,
+    child: PopupMenuButton(
+        onSelected: (型 value){},
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<型>>[
+            const PopupMenuItem(
+                child: ウィジェット,
+                value: 値
+            ),
+            ...
+        ]
+    )
+)
+```
+# Slider
+```
+Slider(
+    onChanged: (double value){},
+    min: <<double>>,
+    max: <<double>>,
+    divisions: <<int>>, // 分割数、省略可(分割なし)
+    value: <<double>>
+)
+```
+# showDialog
+```
+showDialog(
+    context: <<BuildContext>>,
+    builder: <<WidgetBuilder>>
+)
+```
+BuildContextはウィジェットのベース、State(自分自身)にcontextがあり、それを渡せばその画面上にダイアログが出る
+## AlertDialog
+```
+showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+        title: ウィジェット,
+        content: ウィジェット,
+        actions: <Widget>[ウィジェットのリスト]
+    )
+)
+```
+actionsは下側に横並びで表示、通常はボタンなどを置く
+## ダイアログから値の返却
+ダイアログを閉じて値を返す処理
+```
+Navigator.pop<型>(<<BuildContext>>, 値)
+```
+呼び出し時に取得
+```
+showDialog(...).then<void>((型 value){})
+```
+# SimpleDialog
+複数項目から1つを選ぶような入力
+```
+SimpleDialog(
+    title: ウィジェット,
+    children: [ウィジェットのリスト]
+)
+```
+childrenには通常SimpleDialogOption
+## SimpleDialogOption
+```
+SimpleDialogOption(
+    child: ウィジェット,
+    onPressed: (){}
+)
+```
+# AppBar
+```
+AppBar(
+    title: ウィジェット,
+    leading: ウィジェット,
+    actions: <Widget>[リスト],
+    bottom: <<PreferredSize>>
+)
+```
+画面構成  
+leading | title | action action ...  
+bottom  
+## BackButton
+戻るボタン、leadingによく置く
+```
+BackButton(
+    color: <<Color>>
+)
+```
+## PreferredSize
+サイズを指定
+```
+PreferredSize(
+    preferredSize: const Size.fromHeight(30.0),
+    child: ウィジェット
+)
+```
+# BottomNavigationBar
+ScaffoldのbottomNavigationBarに配置  
+画面の下部のナビゲーションバー  
+アイコンなどを横並びに表示し、選択
+```
+BottomNavigationBar(
+    currentIndex: <<int>>,
+    items: <BottomNavigationBarItem>[リスト],
+    onTap: (int value){} // インデックスが渡される
+)
+```
+## BottomNavigationBarItem
+```
+BottomNavigationBarItem(
+    label: <<String>>,
+    icon: <<Icon>>
+)
+```
+## Icon
+```
+Icon(
+    <<Icons>>,
+    color: <<Color>>,
+    size: <<int>>
+)
+```
+# ListView
+```
+ListView(
+    shrinkWrap: <<bool>>, // 項目に応じて大きさを自動調整するか
+    padding: <<EdgeInsets>>,
+    children: <Widget>[リスト]
+)
+```
+## ListTitle
+ListViewのアイテムとして使用される
+```
+ListTitle(
+    leading: <<Icon>>, // 左端に表示
+    title: ウィジェット,
+    selected: <<bool>>,
+    onTap: (){}, // クリック
+    onLongPress: (){} // 長押し
+)
+```
+# SingleChildScrollView
+スクロール表示
+```
+SingleChildScrollView(
+    child: ウィジェット
+)
+```
+# ナビゲーション
+移動先をプッシュ
+```
+Navigator.push(<<BuildContext>>,<<Route>>)
+```
+移動をポップ
+```
+Navigator.pop(<<BuildContext>>)
+```
+## 画面切り替え
+```
+Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context)=>ウィジェット)
+)
+```
+PageRoute -> Routeのサブクラス  
+MaterialPageRoute -> PageRouteのサブクラス  
+PageRoute : 画面をPageRouteインスタンスに置き換え、元の画面をスタックに保管  
+MaterialPageRouteで次の画面に表示するものを用意  
+builderにはWidgetBuildという関数シグネチャ(特定の形式の関数のエイリアス)、`(context)=>ウィジェット`  
+Navigatorのpopで戻る(スタックからPageRouteを取り出し、表示に戻す)
+## 値の受け渡し
+ウィジェットのコンストラクタに引数を追加  
+遷移時に当てはめる
+## routesでのルーティング
+MaterialApp(最初に出すやつ)にルーティングを記述
+```
+MaterialApp(
+    title: ...,
+    theme: ...,
+    initialRoute: "/",
+    routes: {
+        "/": (context) => ウィジェット,
+        "/second": (context) => ウィジェット,
+        ...
+    }
+)
+```
+画面遷移時に、routesに指定したキーを指定して遷移できる
+```
+Navigator.pushNamed(
+    context,
+    "指定したルーティングの文字列"
+)
+```
