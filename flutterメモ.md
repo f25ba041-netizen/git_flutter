@@ -212,6 +212,8 @@ RawMaterialButton(
 ```
 # TextField
 ```
+static final _controller = TextEditingController();
+...
 TextField(
     onChanged: (String val){
         ...
