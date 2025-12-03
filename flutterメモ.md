@@ -239,6 +239,17 @@ Checkbox(
     },
 ),
 ```
+# CheckboxListTile
+テキストを横に置ける
+```
+CheckboxListTile(
+    title: Text(...),
+    value: <<bool>>,
+    onChanged: (bool? value){
+        ...
+    },
+),
+```
 # Radio
 groupValueの値をonChangedで変える
 ```
@@ -250,6 +261,16 @@ Radio<String>(
             _selected = value!;
         });
     },
+)
+```
+# RadioListTile
+テキストを横に置ける
+```
+RadioListTile(
+    title: Text(...),
+    value: 値,
+    groupValue: グループ値,
+    onChanged: (String? value) {...},
 )
 ```
 # DropdownButton
